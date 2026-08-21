@@ -738,7 +738,7 @@ public class ListingService {
 
     @McpTool(path = "/list_shadowed_globals",
             description = "List named global DATA symbols that have NO type of their own because a larger data unit starting at an earlier address covers them. These are invisible to /list_globals — it resolves the CONTAINING unit, so it reports the covering neighbour's type at the shadowed address and the global looks perfectly typed. Each record carries the container that swallowed it. Use this to find documentation that a neighbouring type application destroyed, or a symbol sitting inside an array where it does not belong.",
-            category = "listing")
+            category = "listing", access = ToolAccess.READ_ONLY)
     public Response listShadowedGlobals(
             @Param(value = "offset", defaultValue = "0",
                    description = "Number of entries to skip before this page starts; 0 begins at the "

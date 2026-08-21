@@ -171,7 +171,7 @@ public class CommentService {
      * HTTP round trip per function -- thousands of calls for a mid-size DLL. This collapses
      * that to one call per batch, mirroring batch_set_comments' existence for the write side.
      */
-    @McpTool(path = "/batch_get_comments", description = "Get listing comments (plate/pre/eol/post/repeatable) at MANY addresses in one call. Same per-address shape as get_comment. Pass only_with_comments=true to omit addresses with no comment at all -- the common case for corpus-wide sweeps, where most functions are undocumented and only the documented subset is interesting. On programs with multiple address spaces (e.g., embedded targets), prefix addresses with the space name (mem:1000) to avoid ambiguous resolution.", category = "comment")
+    @McpTool(path = "/batch_get_comments", description = "Get listing comments (plate/pre/eol/post/repeatable) at MANY addresses in one call. Same per-address shape as get_comment. Pass only_with_comments=true to omit addresses with no comment at all -- the common case for corpus-wide sweeps, where most functions are undocumented and only the documented subset is interesting. On programs with multiple address spaces (e.g., embedded targets), prefix addresses with the space name (mem:1000) to avoid ambiguous resolution.", category = "comment", access = ToolAccess.READ_ONLY)
     public Response batchGetComments(
             @Param(value = "addresses", description = "Comma-separated addresses, each 0x<hex> (default space) or <space>:<hex>.") String addressesStr,
             @Param(value = "only_with_comments", defaultValue = "false",
