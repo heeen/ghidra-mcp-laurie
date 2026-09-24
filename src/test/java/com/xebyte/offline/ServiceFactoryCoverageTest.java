@@ -28,7 +28,7 @@ import java.util.stream.Stream;
  */
 public class ServiceFactoryCoverageTest extends TestCase {
 
-    private static final Path SOURCE_ROOT = Paths.get("src/main/java/com/xebyte");
+    private static final Path SOURCE_ROOT = ProjectSource.mainSourceRoot();
 
     /** Matches a real annotation, not the javadoc examples in McpTool.java (those start with '*'). */
     private static final Pattern ANNOTATION = Pattern.compile("^\\s*@McpTool\\s*\\(");
@@ -39,7 +39,7 @@ public class ServiceFactoryCoverageTest extends TestCase {
             for (Path file : (Iterable<Path>) files.filter(p -> p.toString().endsWith(".java"))::iterator) {
                 String name = file.getFileName().toString();
                 if (name.equals("McpTool.java")) continue;  // the annotation's own definition
-                boolean declares = Files.readAllLines(file).stream()
+                boolean declares = ProjectSource.read(file).lines()
                     .anyMatch(line -> ANNOTATION.matcher(line).find());
                 if (declares) found.add(name.substring(0, name.length() - ".java".length()));
             }
